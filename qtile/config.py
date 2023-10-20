@@ -113,8 +113,6 @@ def window_to_next_screen(qtile, switch_group=False, switch_screen=False):
             qtile.cmd_to_screen(i + 1)
 
 
-groups = []
-
 # FOR QWERTY KEYBOARDS
 group_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0",]
 
@@ -123,14 +121,14 @@ group_labels = ["1 ", "2 ", "3 ", "4 ", "5 ", "6 ", "7 ", "8 ", "9 ", "0",]
 
 group_layouts = ["monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall",]
 
-for i in range(len(group_names)):
-    groups.append(
-        Group(
-            name=group_names[i],
-            layout=group_layouts[i].lower(),
-            label=group_labels[i],
-        ))
-
+groups = [
+    Group(
+        name=group_names[i],
+        layout=group_layouts[i].lower(),
+        label=group_labels[i],
+    )
+    for i in range(len(group_names))
+]
 for i in groups:
     keys.extend([
 
@@ -190,241 +188,189 @@ widget_defaults = init_widgets_defaults()
 
 def init_widgets_list():
     prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
-    widgets_list = [
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 10,
-                        foreground = colors[2],
-                        background = colors[1]
-                        ),
-               widget.CurrentLayoutIcon(
-                        padding = 0,
-                        scale = 0.6,
-                        ),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 10,
-                        foreground = colors[2],
-                        background = colors[1]
-                        ),
-               widget.GroupBox(font="Source Code Pro",
-                        fontsize = 15,
-                        margin_y = 2,
-                        margin_x = 3,
-                        padding_y = 2,
-                        padding_x = 3,
-                        borderwidth = 0,
-                        disable_drag = True,
-                        active = colors[7],
-                        inactive = colors[2],
-                        rounded = False,
-                        highlight_method = "text",
-                        this_current_screen_border = colors[3],
-                        foreground = colors[2],
-                        background = colors[1]
-                        ),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 10,
-                        background = colors[1],
-                        foreground = colors[2],
-                        ),
-               widget.WindowName(font="Source Code Pro Bold",
-                        fontsize = 14,
-                        foreground = colors[0],
-                        background = colors[1],
-                        ),
-               widget.Pomodoro(
-                        background = colors[1],
-                        color_active = colors[1],
-                        color_break = colors[1],
-                        color_inactive = colors[1],
-                        font = 'Source Code Pro Bold',
-                        icon_size = 14,
-                        decorations = [
-                            RectDecoration (
-                                colour = colors[5],
-                                padding_y = 5,
-                                radius = 2,
-                                filled = True
-                            ),
-                        ], ),
-               widget.Sep(
-                        foreground = colors[1],
-                        background = colors[1],
-                        padding = 10,
-                        linewidth = 1
-                        ),
-               widget.CPU(
-                        background = colors[1],
-                        foreground = colors[1],
-                        font = "Source Code Pro Bold",
-                        fontsize = 13,
-                        decorations = [
-                            RectDecoration (
-                                colour = colors[4],
-                                padding_y = 5,
-                                radius = 2,
-                                filled = True
-                            ),
-                        ],
-                        ),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 10,
-                        foreground = colors[1],
-                        background = colors[1]
-                        ),
-               widget.Memory(
-                        measure_mem = 'G',
-                        foreground = colors[1],
-                        background = colors[1],
-                        font = "Source Code Pro Bold",
-                        fontsize = 14,
-                        decorations = [
-                            RectDecoration (
-                                colour = colors[6],
-                                padding_y = 5,
-                                radius = 2,
-                                filled = True
-                                ),
-                        ],
-                        ),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 10,
-                        foreground = colors[1],
-                        background = colors[1]
-                        ),
-               widget.DF(
-                        visible_on_warn = False,
-                        background = colors[1],
-                        foreground = colors[1],
-                        font = "Source Code Pro Bold",
-                        fontsize = 14,
-                        decorations = [
-                            RectDecoration (
-                                colour = colors[0],
-                                padding_y = 5,
-                                radius = 2,
-                                filled = True
-                            ),
-                        ],
-                        ),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 10,
-                        background = colors[1],
-                        foreground = colors[1]
-                        ),
-               #widget.TextBox(
-               #         font="FontAwesome",
-               #         text="  ",
-               #         foreground=colors[8],
-               #         background=colors[1],
-               #         padding = 0,
-               #         fontsize=18,
-               #         ),
-               widget.Clock(
-                        foreground = colors[1],
-                        background = colors[1],
-                        font = "Source Code Pro Bold",
-                        fontsize = 14,
-                        format = "%H:%M",
-                        decorations = [
-                            RectDecoration (
-                                colour = colors[3],
-                                padding_y = 5,
-                                radius = 2,
-                                filled = True
-                            ),
-                        ],
-                        ),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 10,
-                        foreground = colors[1],
-                        background = colors[1]
-                        ),
-               #widget.TextBox(
-               #         font="FontAwesome",
-               #         text="  ",
-               #         foreground=colors[7],
-               #         background=colors[1],
-               #         padding = 0,
-               #         fontsize=15
-               #         ),
-               widget.Clock(
-                        foreground = colors[1],
-                        background = colors[1],
-                        fontsize = 14,
-                        font = "Source Code Pro Bold",
-                        format="%m/%d/%y",
-                        decorations = [
-                            RectDecoration (
-                                colour = colors[8],
-                                padding_y = 5,
-                                radius = 2,
-                                filled = True
-                            ),
-                        ],
-                        ),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 10,
-                        foreground = colors[2],
-                        background = colors[1]
-                        ),
-               #Spotify(
-               #     foreground = colors[3],
-               #     background = colors[1],
-               #     font = 'Source Code Pro Bold',
-               #     fontsize = 13,
-               #     play_icon = '>',
-               #     pause_icon = 'x',
-               #     format = '{icon} {artist}: {track}'
-               #       ),
-                widget.UPowerWidget(
-                        border_colour = '#d8dee9',
-                        border_critical_colour = '#bf616a'
-                        ),
-                widget.Battery(
-                        charge_char = "charging:",
-                        discharge_char = "batt:",
-                        font = "Source Code Pro Bold",
-                        fontsize = 13,
-                        background = colors[1],
-                        foreground = colors[1],
-                        format = "{char} {percent:2.0%}",
-                            decorations = [
-                                RectDecoration(
-                                    colour = colors[7],
-                                    padding_y = 5,
-                                    radius = 2,
-                                    filled = True
-                                    ),
-                                ],
-                        ),
-                widget.Systray(
-                        background = colors[1],
-                        icon_size = 20,
-                        padding = 4
-                        ),
-                widget.Sep(
-                        linewidth = 1,
-                        padding = 10,
-                        foreground = colors[2],
-                        background = colors[1]
-                        ),
-              ]
-    return widgets_list
+    return [
+        widget.Sep(
+            linewidth=1, padding=10, foreground=colors[2], background=colors[1]
+        ),
+        widget.CurrentLayoutIcon(
+            padding=0,
+            scale=0.6,
+        ),
+        widget.Sep(
+            linewidth=1, padding=10, foreground=colors[2], background=colors[1]
+        ),
+        widget.GroupBox(
+            font="Source Code Pro",
+            fontsize=15,
+            margin_y=2,
+            margin_x=3,
+            padding_y=2,
+            padding_x=3,
+            borderwidth=0,
+            disable_drag=True,
+            active=colors[7],
+            inactive=colors[2],
+            rounded=False,
+            highlight_method="text",
+            this_current_screen_border=colors[3],
+            foreground=colors[2],
+            background=colors[1],
+        ),
+        widget.Sep(
+            linewidth=1,
+            padding=10,
+            background=colors[1],
+            foreground=colors[2],
+        ),
+        widget.WindowName(
+            font="Source Code Pro Bold",
+            fontsize=14,
+            foreground=colors[0],
+            background=colors[1],
+        ),
+        widget.Pomodoro(
+            background=colors[1],
+            color_active=colors[1],
+            color_break=colors[1],
+            color_inactive=colors[1],
+            font='Source Code Pro Bold',
+            icon_size=14,
+            decorations=[
+                RectDecoration(
+                    colour=colors[5], padding_y=5, radius=2, filled=True
+                ),
+            ],
+        ),
+        widget.Sep(
+            foreground=colors[1], background=colors[1], padding=10, linewidth=1
+        ),
+        widget.CPU(
+            background=colors[1],
+            foreground=colors[1],
+            font="Source Code Pro Bold",
+            fontsize=13,
+            decorations=[
+                RectDecoration(
+                    colour=colors[4], padding_y=5, radius=2, filled=True
+                ),
+            ],
+        ),
+        widget.Sep(
+            linewidth=1, padding=10, foreground=colors[1], background=colors[1]
+        ),
+        widget.Memory(
+            measure_mem='G',
+            foreground=colors[1],
+            background=colors[1],
+            font="Source Code Pro Bold",
+            fontsize=14,
+            decorations=[
+                RectDecoration(
+                    colour=colors[6], padding_y=5, radius=2, filled=True
+                ),
+            ],
+        ),
+        widget.Sep(
+            linewidth=1, padding=10, foreground=colors[1], background=colors[1]
+        ),
+        widget.DF(
+            visible_on_warn=False,
+            background=colors[1],
+            foreground=colors[1],
+            font="Source Code Pro Bold",
+            fontsize=14,
+            decorations=[
+                RectDecoration(
+                    colour=colors[0], padding_y=5, radius=2, filled=True
+                ),
+            ],
+        ),
+        widget.Sep(
+            linewidth=1, padding=10, background=colors[1], foreground=colors[1]
+        ),
+        # widget.TextBox(
+        #         font="FontAwesome",
+        #         text="  ",
+        #         foreground=colors[8],
+        #         background=colors[1],
+        #         padding = 0,
+        #         fontsize=18,
+        #         ),
+        widget.Clock(
+            foreground=colors[1],
+            background=colors[1],
+            font="Source Code Pro Bold",
+            fontsize=14,
+            format="%H:%M",
+            decorations=[
+                RectDecoration(
+                    colour=colors[3], padding_y=5, radius=2, filled=True
+                ),
+            ],
+        ),
+        widget.Sep(
+            linewidth=1, padding=10, foreground=colors[1], background=colors[1]
+        ),
+        # widget.TextBox(
+        #         font="FontAwesome",
+        #         text="  ",
+        #         foreground=colors[7],
+        #         background=colors[1],
+        #         padding = 0,
+        #         fontsize=15
+        #         ),
+        widget.Clock(
+            foreground=colors[1],
+            background=colors[1],
+            fontsize=14,
+            font="Source Code Pro Bold",
+            format="%m/%d/%y",
+            decorations=[
+                RectDecoration(
+                    colour=colors[8], padding_y=5, radius=2, filled=True
+                ),
+            ],
+        ),
+        widget.Sep(
+            linewidth=1, padding=10, foreground=colors[2], background=colors[1]
+        ),
+        # Spotify(
+        #     foreground = colors[3],
+        #     background = colors[1],
+        #     font = 'Source Code Pro Bold',
+        #     fontsize = 13,
+        #     play_icon = '>',
+        #     pause_icon = 'x',
+        #     format = '{icon} {artist}: {track}'
+        #       ),
+        widget.UPowerWidget(
+            border_colour='#d8dee9', border_critical_colour='#bf616a'
+        ),
+        widget.Battery(
+            charge_char="charging:",
+            discharge_char="batt:",
+            font="Source Code Pro Bold",
+            fontsize=13,
+            background=colors[1],
+            foreground=colors[1],
+            format="{char} {percent:2.0%}",
+            decorations=[
+                RectDecoration(
+                    colour=colors[7], padding_y=5, radius=2, filled=True
+                ),
+            ],
+        ),
+        widget.Systray(background=colors[1], icon_size=20, padding=4),
+        widget.Sep(
+            linewidth=1, padding=10, foreground=colors[2], background=colors[1]
+        ),
+    ]
 
 widgets_list = init_widgets_list()
 
 
 def init_widgets_screen1():
-    widgets_screen1 = init_widgets_list()
-    return widgets_screen1
+    return init_widgets_list()
 
 
 widgets_screen1 = init_widgets_screen1()
@@ -452,7 +398,7 @@ main = None
 @hook.subscribe.startup_once
 def start_once():
     home = os.path.expanduser('~')
-    subprocess.call([home + '/.config/qtile/scripts/autostart.sh'])
+    subprocess.call([f'{home}/.config/qtile/scripts/autostart.sh'])
 
 @hook.subscribe.startup
 def start_always():
