@@ -44,7 +44,10 @@ keys = [
     Key([mod, "shift"], "r", lazy.restart()),
 
 # CHANGE BRIGHTNESS
-
+    # Decrease brightness by 10%
+    Key([], "F5", lazy.spawn("brightnessctl set 10%-")),
+    # Increase brightness by 10%
+    Key([], "F6", lazy.spawn("brightnessctl set +10%")),
 
 # QTILE LAYOUT KEYS
     Key([mod], "n", lazy.layout.normalize()),
@@ -500,6 +503,5 @@ auto_fullscreen = True
 focus_on_window_activation = "focus" # or smart
 
 wmname = "LG3D"
-
 
 
