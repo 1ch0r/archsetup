@@ -1,6 +1,7 @@
 # archsetup
-A compilation of my customization options for Arch
-####################################################
+# NO LONGER MAINTAINED
+# A compilation of my customization options for Arch
+########################################
 INSTALL APPS
 chmod u+x apps.sh
 sudo ./apps.sh
